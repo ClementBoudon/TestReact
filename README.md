@@ -24,6 +24,49 @@
 
 ## Notes de tests
 
+### React
+
+ - [React Tutorial](https://facebook.github.io/react/docs/tutorial.html)
+   - Objectif : système de commentaire.
+   - On Utilisera un serveur local pour fournir une API pour simuler le backend.
+   - On télécharge [l'archive d'exemple](https://github.com/reactjs/react-tutorial/archive/master.zip) et on décompress dans le dossier `react-tutorial`
+   - On lance un serveur node.js : `npm install` et `node server.js` (pour tester : [http://localhost:3000](http://localhost:3000/)).
+   - On va éditer le fichier `public/index.html`
+   - On supprimme l'inclusion du script `scripts/example.js` pour partir de 0.
+
+   - On crée un fichier `tutorial1.js` initial :
+     - Les composants sont organisés tels que : `CommentBox` contient une liste `CommentList` qui contient des `Comment`, ainsi qu'un `CommentForm`
+     - Le fichier contient du JSX, qui permet d'utiliser des balises type XML dans le code pour représenter les composants. Ici le JSX est transformé en JavaScript via la librairie Babel. On pourrait également directement codé en JS (cf `tutorial1-raw.js`).
+     - On crée un nouveau composant via la méthode fournie par React `React.createClass()`, où l'on défini le nom du composant, mais surtout la méthode `render` qui retourne le contenu du composant (ici, `div` n'est pas un élement div du DOM classique, mais un composant existant fourni par React).
+     - La méthode `ReactDOM.render` permet d'intégrer le composant *racine* dans l'élément défini dans le second paramètre.
+     - Pour tester, on inclus le script `scripts/tutorial1.js` dans la page `public/index.html` (simple div affichée).
+   - Ajoutons quelques éléments
+     - On crée deux autres composants `CommentList` et `CommentForm` (de simples div pour l'instant), et on garde le code précédent en bas de fichier.
+     - Sauf que l'on modifie le composant `CommentBox` pour inclure nos deux nouveaux composants.
+   - Jouons avec les `props`
+     - On ajoute un nouveau composant `Comment` qui va utiliser les propriétés fournie par l'élément parent (propriétés qui seront donc définies lors du l'intégration du composant dans `CommentList`).
+     - Une propriété peut être référencée par une clé (ici `author` par exemple) ou par les éléments imbriqués via `this.props.children`.
+     - Du coup on modifie `CommentList` pour intégrer : les différents composants `Comment`, et pour chacun la propriété `author` et le contenu.
+   - On ajoute des `Markdown`
+     - Si l'on veut ajouter la gestion des Markdown, sachant que nous avons déjà inclus le script `marked` dans l'index, on va simplement transformer la propriété enfant en chaine, et utiliser la fonction `marked`.
+     - Mais React protège automatiquement des failles XSS, et donc affiche directement les balises HTML. Du coup on utilise un petit workaround (mais pas conseillé).
+   - La gestion du modèle :
+     - On crée dans le fichier la variable json (qui viendra plus tard de l'API)
+     - Pour que les composants restent modulables : on passe les données à la `CommentBox` via une propriété `data`.
+     - Enfin dans `CommentList` et sa fonction `render`, on crée un variable `commentNodes` qui pour chaque propriété data (`.map()`) va inclure un composant `Comment` rempli de ses propriétés (dont `id` qui est nativement disponible).
+   - Gestion du `state`
+     - les `props` sont immuables, fournies par le parent d'un composant. Pour faire varier des éléments propres à un composant, on utilise les 'états', soit les méthodes `state` (`getInitialState`, `setState`, `this.state.`)
+     - Ici on utilise ces méthodes pour *puller* une URL fournie en propriété, qui va mettre à jour le `state` *data*.
+
+
+
+
+
+
+
+
+
+
 ### Angular 2
 
  - [Angular 2 QuickStart](https://angular.io/docs/ts/latest/quickstart.html) *Version JavaScript*
