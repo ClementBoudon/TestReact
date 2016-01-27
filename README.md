@@ -26,6 +26,9 @@
 
 ### React
 
+ - [Starter Kit](https://facebook.github.io/react/downloads/react-0.14.6.zip)
+   - Pour faire du React sans outils (et donc sans JSX), on peut utiliser ce starter kit et inclure les libraires react.js et react-dom.js (et coder du React).
+
  - [React Tutorial](https://facebook.github.io/react/docs/tutorial.html)
    - Objectif : système de commentaire.
    - On Utilisera un serveur local pour fournir une API pour simuler le backend.
