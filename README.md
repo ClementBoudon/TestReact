@@ -33,7 +33,6 @@
    - On lance un serveur node.js : `npm install` et `node server.js` (pour tester : [http://localhost:3000](http://localhost:3000/)).
    - On va éditer le fichier `public/index.html`
    - On supprimme l'inclusion du script `scripts/example.js` pour partir de 0.
-
    - On crée un fichier `tutorial1.js` initial :
      - Les composants sont organisés tels que : `CommentBox` contient une liste `CommentList` qui contient des `Comment`, ainsi qu'un `CommentForm`
      - Le fichier contient du JSX, qui permet d'utiliser des balises type XML dans le code pour représenter les composants. Ici le JSX est transformé en JavaScript via la librairie Babel. On pourrait également directement codé en JS (cf `tutorial1-raw.js`).
@@ -57,14 +56,24 @@
    - Gestion du `state`
      - les `props` sont immuables, fournies par le parent d'un composant. Pour faire varier des éléments propres à un composant, on utilise les 'états', soit les méthodes `state` (`getInitialState`, `setState`, `this.state.`)
      - Ici on utilise ces méthodes pour *puller* une URL fournie en propriété, qui va mettre à jour le `state` *data*.
+  - Gestion du formulaire pour rajouter de nouveaux commentaires
+    - Tout d'abord on modifie le composant `CommentForm`
+    - Pour que le composant représente constamment ce qu'il est dans le navigateur (c'est-à-dire constamment à jour à partir des informations saisies par l'utilisateur), nous allons utiliser des fonctions appelées sur le `onChange`, qui vont mettre à jour le `state` du composant. Ce `state` sera définie à vide à l'affichage du formulaire via `getInitialState`, puis utilisé dans les `value` des input). Il s'agit donc ici d'un composant controllé, appelé `controlled component` par React.
+    - Lors de la soumission du formulaire, nous allons le vider, envoyer son contenu au server et rafraichir la liste des commentaires.
+    - On écoute la soumission du formulaire via `onSubmit={this.handleSubmit}` (et on définit la méthode *handle* correspondante).
+    - Après avoir bloqué le comportement par défaut du navogateur, on traite les données (récupérées via le `state`), on envoie les données (on y reviendra), et on vide les données dans le `state.
+    - Pour le rafraichissement de la liste des commentaire : comme c'est `CommentBox` qui détient la liste `CommentList`, c'est à la box de rafraichir cette liste. On crée donc une fonction `handleCommentSubmit` dans `CommentBox`. On veut faire remonter les informations (contenues dans le `state` du `CommentForm`) pour l'appel à la fonction `handleCommentSubmit`, fonction définie dans le composant parent. Pour cela, on va passer, via une propriété, la fonction vers le composant enfant (en ajoutant `onCommentSubmit={this.handleCommentSubmit}`). On pourra donc appeler `onCommentSubmit` via les `props`, dans le composant enfant.
+    - Il reste donc à ajouter la requete ajax dans la fonction `handleCommentSubmit`.
+  - (Mini) Optimisation
+    - Pour ne pas attendre la soumission du nouveau commentaire au serveur, son insertion dans le fichier json qui sert de BDD, puis le re-affichage de la liste pour voir apparaitre le nouveau commentaire, on peut intégrer le commentaire directement dans la liste.
+    - On stock dans une variable la liste des commentaires actuelle, on génère un id temporaire (basique ici, en prod on fait différement, etc.) pour le nouveau commentaire qui sera remplacé par celui du serveur à réception des données après insertion et on ajoute le nouveau commentaire aux existants dans une nouvelle variable (qui viendra remplacé le `state` du composant). En cas de succès ou d'erreur de la requête ajax, on mets à jour le `state`en fonction.
+  - Thats All Folks!
 
+En résumé : Chez M. React, on crée des composants qui s'imbriquent, qui ont des propriétés fournies par leurs parents, des valeurs d'état qui peuvent être modifiées et des méthodes propres. On modifie le `state` ? React modifie l'affichage.
 
+On ne manipule pas directement le DOM (même si on peut via ReactDOM), pour laisser React gérer son DOM virtuel au mieux en fonction du browser (ou un équivalent, coucou React Native ;)).
 
-
-
-
-
-
+Et on peut directement utiliser ces composants faits maison en XML-like (via du JSX qui sera compilé en JS par la suite).
 
 
 ### Angular 2
@@ -85,7 +94,7 @@
    - Quand Angular appelle la fonction `Bootstrap()` à la fin du chargement du contenu du DOM dans `boot.js`, il lit les méta-données du composant `AppComponent`, recherche (et trouve) le tag du sélecteur (ici `my-app`), et charge l'application dans le tag.
    - On lance l'application :
      - `npm start` (qui lance le script `start` - donc `lite` donc `lite-server`, un serveur node allégé mais avec pleins d'outils pratiques - déclaré dans le `package.json`)
-     - Thats All Folks!
+   - Thats All Folks!
 
 
 ## Biblio
