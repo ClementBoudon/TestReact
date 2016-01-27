@@ -20,6 +20,7 @@
   1. l'app iOS
   2. l'app Android
 4. Et si on utilisait Cordova ?
+5. Angular + Ionic + Cordova = Angular + React + React Native ?
 
 
 ## Notes de tests
@@ -104,5 +105,5 @@ Et on peut directement utiliser ces composants "faits maison" en XML-like (via d
 
  - [React](https://facebook.github.io/react/)
  - [React Native](https://facebook.github.io/react-native/)
-
+ - [ngReact](http://ngreact.github.io/ngReact/)
  - [Angular 2](https://angular.io/)
