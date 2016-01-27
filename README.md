@@ -27,7 +27,7 @@
 ### React
 
  - [Starter Kit](https://facebook.github.io/react/downloads/react-0.14.6.zip)
-   - Pour faire du React sans outils (et donc sans JSX), on peut utiliser ce starter kit et inclure les libraires react.js et react-dom.js (et coder du React).
+   - Pour faire du React sans outils (et donc sans JSX), on peut utiliser ce starter kit et inclure les libraires react.js et react-dom.js. Et coder du React.
 
  - [React Tutorial](https://facebook.github.io/react/docs/tutorial.html)
    - Objectif : système de commentaire.
@@ -72,11 +72,11 @@
     - On stock dans une variable la liste des commentaires actuelle, on génère un id temporaire (basique ici, en prod on fait différement, etc.) pour le nouveau commentaire qui sera remplacé par celui du serveur à réception des données après insertion et on ajoute le nouveau commentaire aux existants dans une nouvelle variable (qui viendra remplacé le `state` du composant). En cas de succès ou d'erreur de la requête ajax, on mets à jour le `state`en fonction.
   - Thats All Folks!
 
-En résumé : Chez M. React, on crée des composants qui s'imbriquent, qui ont des propriétés fournies par leurs parents, des valeurs d'état qui peuvent être modifiées et des méthodes propres. On modifie le `state` ? React modifie l'affichage.
+En résumé : Chez M. React, on crée des composants qui s'imbriquent, qui ont des propriétés fournies par leurs parents, des valeurs d'état qui peuvent être modifiées et des méthodes propres. On modifie le `state` ? React modifie l'affichage. L'utilisateur modifie une valeur ? On fait remonter via les props la valeur au composant qui détient le `state` (et donc permet de garder un composant à jour).
 
-On ne manipule pas directement le DOM (même si on peut via ReactDOM), pour laisser React gérer son DOM virtuel au mieux en fonction du browser (ou un équivalent, coucou React Native ;)).
+On ne manipule pas directement le DOM (même si on peut via ReactDOM), pour laisser React gérer son DOM virtuel au mieux en fonction du browser (ou un équivalent, coucou React Native ;)) lorsqu'on utilise sa méthode `.render`.
 
-Et on peut directement utiliser ces composants faits maison en XML-like (via du JSX qui sera compilé en JS par la suite).
+Et on peut directement utiliser ces composants "faits maison" en XML-like (via du JSX qui sera compilé en JS par la suite).
 
 
 ### Angular 2
