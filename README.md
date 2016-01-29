@@ -25,6 +25,7 @@
 
 ## Notes de tests
 
+
 ### React
 
  - [Starter Kit](https://facebook.github.io/react/downloads/react-0.14.6.zip)
@@ -120,6 +121,8 @@ Ce système avec flot uni-directionnel permet d'éviter les mise à jour en casc
 
 Pour aller plus loin : le bon vieux [tuto de TODO List](https://facebook.github.io/flux/docs/todo-list.html#content) appliquant Flux.
 
+![Flux un peu plus détaillé](https://github.com/facebook/flux/raw/master/docs/img/flux-diagram-white-background.png "Flux un peu plus détaillé")
+*Extrait du README.md du [repo Github du Todo](https://github.com/facebook/flux/tree/master/examples/flux-todomvc/).*
 
 ## Biblio
 
