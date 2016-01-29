@@ -101,6 +101,26 @@ Et on peut directement utiliser ces composants "faits maison" en XML-like (via d
    - Thats All Folks!
 
 
+## Flux
+
+[Flux](https://facebook.github.io/flux/docs/overview.html)
+=> Plus un principe de développement, un pattern, qu'un Framework.
+
+Opposé à MVC, ici on a
+- un **Dispatcher** global, qui est une simple liste de fonctions à appeler à la notification d'une action (utilisateur par exemple). Il peut devenir plus qu'une siple liste, pour gérer des priorités ou des prédécesseurs spécifiques pour certains callback.
+- des **Stores**, qui stockent les données, avec un *store* par domaine d'application (entre la notion de collection globale et de représentation unitaire de l'information). Un store s'enregistre lui-même auprès du *dispatcher* global, associé à une fonction de callback à laquelle sera passé l'action en paramètre. Un switch dans la fonction de callback du store permet d'effectuer les traitements spécifiques de l'action, puis d'envoyer une notification aux vues concernées pour leur indiquer de se mettre à jour (car il y a de nouvelles données à récupérer !).
+- des **View** (cc React;)), composants les plus découpés possibles, qui affichent les données reçues à leur initialisation dans leur *state*, et qui quand ils enregistrent une modification de ces données (action utilisateur par exemple), ne mettent pas à jour les stores directement, mais crée une action, *action create*, qui va aller appeler le **Dispatcher**, qui va lui même appeler les méthodes des stores enregistrées dans sa liste. C'est donc ensuite les *stores* concernés qui vont, en plus de stocker la nouvelle données, appeler les méthodes des composants de la vue pour qu'ils viennent récupérer les nouvelles données dans les store, ce qu'ils feront avant de se rafraichir. Généralement, il y a un seul composant vue "owner" principal en haut de l'arbre de composants, le *Controller-View*, qui est rattaché à un store, et qui ensuite transmet l'ensemble des données du store aux sous-composants qu'il détient, qui eux vont simplement recevoir de nouvelles données, mettre à jour leur state, puis se *re-render*, et entrainer ces même actions dans les composannts qu'ils détiennent eux-même si tel est le cas.
+- des **Actions**, helpers appelées par les vues (ou par le serveur par exemple), qui vont permettre au *Dispatcher* de lancer les fonctions des *stores* concernés.
+
+![flux diagram](https://facebook.github.io/flux/img/flux-simple-f8-diagram-explained-1300w.png "flux diagram")
+*Merci [https://facebook.github.io/flux](https://facebook.github.io/flux/).*
+
+Ce système avec flot uni-directionnel permet d'éviter les mise à jour en cascades et un plus grand découpage (si dépendance il y a, elle est limitée à une hierarchie stricte gérée par le *dispatcher*) que les modèles MVC où la Vue met directement à jour le Modele, qui entraine la modification d'autres vues, qui vont elles-même directement mettre à jour d'autres modèles, etc. Ici le flot de données ne va que dans un seul sens, rendant l'architecture de l'application plus lisible et les modules la composant moins interdépendants.
+
+
+Pour aller plus loin : le bon vieux [tuto de TODO List](https://facebook.github.io/flux/docs/todo-list.html#content) appliquant Flux.
+
+
 ## Biblio
 
  - [React](https://facebook.github.io/react/)
