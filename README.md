@@ -128,5 +128,6 @@ Pour aller plus loin : le bon vieux [tuto de TODO List](https://facebook.github.
 
  - [React](https://facebook.github.io/react/)
  - [React Native](https://facebook.github.io/react-native/)
+ - [Flux](https://facebook.github.io/flux/)
  - [ngReact](http://ngreact.github.io/ngReact/)
  - [Angular 2](https://angular.io/)
