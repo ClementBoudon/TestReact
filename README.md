@@ -25,6 +25,12 @@
 
 ## Notes de tests
 
+### React Native
+
+ - [React Native Getting Started](https://facebook.github.io/react-native/docs/getting-started.html#content)
+   - Il faut être sous mac (pour le tuto), avoir [Homebrew](http://brew.sh/) pour Watchman et Flow, ainsi que et node en local (on check : `brew -v` / `node -v`)
+   - Pour updater brew, j'ai dû changer les droits de /usr/local, et donc retrouver mon nom d'utilisateur `whoami` et mon nom de groupe `groups $(whoami) | cut -d' ' -f1` puis faire un `cd /usr/local` + `sudo chown -R <your-username>:<your-group-name> *`
+
 
 ### React
 
