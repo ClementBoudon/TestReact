@@ -1,15 +1,15 @@
 # Repo de test de ReactJS / React Native
 ## TODO
 
-- [x] Tuto Angular2
-- [x] Tuto React et compréhension principes
-- [x] Recherche Flux, Relay et GraphQL
-- [x] Tuto React Native
-- [x] Lecture doc React Native
-- [ ] PPT
-- [ ] Lecture doc React Native
+- [x] ~~Tuto Angular2~~
+- [x] ~~Tuto React et compréhension principes~~
+- [x] ~~Recherche Flux, Relay et GraphQL~~
+- [x] ~~Tuto React Native~~
+- [x] ~~Lecture doc React Native~~
+- [ ] Lecture doc React
 - [ ] Test app vers web (div)
 - [ ] Recherche Angular derrière React Native
+- [ ] *PPT*
 - [ ] Approfondir Angular2
 
 ## Notes d'étude
@@ -398,13 +398,14 @@ Pour aller plus loin : le bon vieux [tuto de TODO List](https://facebook.github.
 *Extrait du README.md du [repo Github du Todo](https://github.com/facebook/flux/tree/master/examples/flux-todomvc/).*
 
 ## Biblio
-
- - [React](https://facebook.github.io/react/)
- - [React Native](https://facebook.github.io/react-native/)
- - [Flux](https://facebook.github.io/flux/)
- - [ngReact](http://ngreact.github.io/ngReact/)
  - [Angular 2](https://angular.io/)
- - [Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+ - [React](https://facebook.github.io/react/)
+ - [ngReact](http://ngreact.github.io/ngReact/)
+ - [React Native](https://facebook.github.io/react-native/)
  - [Why React Native](https://code.facebook.com/posts/1014532261909640/react-native-bringing-modern-web-techniques-to-mobile/)
- - [Introducing Relay and GraphQL](https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html)
  - [React Native Styling : rational behind it](https://facebook.github.io/react-native/docs/style.html)
+ - [Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+ - [Flux](https://facebook.github.io/flux/)
+ - [Introducing Relay and GraphQL](https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html)
+ - [Learning React.js: Getting Started and Concepts](https://scotch.io/tutorials/learning-react-getting-started-and-concepts)
+
