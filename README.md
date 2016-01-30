@@ -15,7 +15,18 @@
   1. SPA
   2. Framework MVC
   3. V *via* React
+    1. Composant, Composant everywhere (découpe unitaire, gère l'affichage des éléments composant ue app, methode render retournant l'affichage)
+    2. Des props... (données non modifiable, reçue par le "owner")
+    3. ... et des states (données modifiable par le composant - donc l'utilisateur. React maintient l'affichage à jour en cas de changement de state)
+    4. (et puis des méthodes)
+    2. VirtualDOM (render dans un contexte donnée, cc React Native)
+    3. JSX conseillé (efficacité et lisibilité), mais pas obligatoire
+    4. Data flow uni-directionnel (même si on peut faire du bi-directionnel vers parents, grâce à des méthodes connues via des props)
+  4. Plutôt pas M et C finallement, mais du flux (et du relay, et du GraphQL)
 2. React Native
+  1. Des composants comme React et grace au virtualDOM on peut faire du mobile (pas de div : à valider)
+  2. Du style (flex, en JS car nécessité de répondre à des contraintes posées par CSS web)
+  3. Du natif si besoin
 3. Explorons...
   1. l'app iOS
   2. l'app Android
@@ -23,9 +34,159 @@
 5. Angular + Ionic + Cordova = Angular + React + React Native ?
 
 
-## Notes de tests
+## Notes de tests (de bas en haut chronologiquement)
 
 ### React Native
+
+
+ - [React Native Tutorial](http://facebook.github.io/react-native/docs/tutorial.html#content)
+   - On considère que notre stack locale est complète (cf. React Native Getting Started : Mac / Homebrew / Watchman / Flow / Node - NPM / Xcode / Android SDK - Simulateur)
+   - On crée le dossier du projet `mkdir reactnative-tutorial` et on se place dedans `cd reactnative-tutorial`
+   - On installe l'outil en ligne de commande de React Native (si elle n'a pas déjà étét installée en global `react-native -v`) : `npm install -g react-native-cli`
+   - On initie le nouveau projet `react-native init AwesomeProject` qui va générer le code des applis iOS et Android (compter 2 min).
+   - On lance dans le projet `cd AwesomeProject` le serveur `npm start` pour gérer le reload automatique
+   - On peut désormais ouvrir dans Xcode le projet iOS, pour lancer le build et l'émulateur.
+   - Pour Android, on lance le simulateur (Android Studio > Tools > Android > AVD Manager > Launch), et une fois qu'il est lancé, dans le dossier du projet : `react-native run-android` (si erreur ANDROID_HOME, cf. procedure *React Native Getting Started* (compter plusieurs minutes)
+   - Nos apps tournent !
+   - On a deux fichiers : index.ios.js pour iOS et index.android.js. On va se concentrer sur index.ios.js pour ce tuto, mais normalement on développerai évidemment une seule app, qu'un inclurai dans les deux fichiers spécifiques.
+   - Dans ce tuto : on va récupérer une liste de film stockés dans une variable, avec affiche, titre et année de sortie.
+   - on ouvre index.ios.js (et on y jete un petit coup d'oeil avant de faire du nettoyage).
+   - Pour les données : on crée la variable ci-dessous après les imports :
+```js
+var MOCKED_MOVIES_DATA = [
+  {title: 'Title', year: '2015', posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}},
+];
+```
+   - Comme on va affiché une affiche, il faut rajouter à la liste des composant importé le composant fourni par React Native `Image`
+   - On modifie la méthode `render` du composant racine du projet `AwesomeProject`
+```js
+render() {
+    var movie = MOCKED_MOVIES_DATA[0];
+    return (
+      <View style={styles.container}>
+        <Text>{movie.title}</Text>
+        <Text>{movie.year}</Text>
+        <Image source={{uri: movie.posters.thumbnail}} />
+      </View>
+    );
+  }
+```
+   - On rafraichit l'app, on voit les textes mais pas l'image car nous n'avons pas défini de dimension à l'image. On va faire ça via les styles (en supprimant le code précédent) :
+```js
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  thumbnail: {
+    width: 53,
+    height: 81,
+  },
+});
+```
+   - On oublie pas de rajouter la prop style : `style={styles.thumbnail}` au composant Image
+   - On améliore un peu le style en ajoutant des conteneurs et des styles (placement via [flex](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)) :
+```js
+return (
+        <View style={styles.container}>
+          <Image
+            source={{uri: movie.posters.thumbnail}}
+            style={styles.thumbnail}
+          />
+          <View style={styles.rightContainer}>
+            <Text style={styles.title}>{movie.title}</Text>
+            <Text style={styles.year}>{movie.year}</Text>
+          </View>
+        </View>
+      );
+```
+```js
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },rightContainer: {
+    flex: 1,
+  },title: {
+    fontSize: 20,
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  year: {
+    textAlign: 'center',
+  },
+```
+   - Les données : on va utiliser un JSON en ligne pour notre test :
+```js
+var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
+```
+   - On utilise un state pour savoir si on a reçu les informations ou pas.
+```js
+constructor(props) {
+    super(props);
+    this.state = {
+      movies: null,
+    };
+  }
+```
+   - Une fois que le composant est monté, on lance la récupération des données (via une promise sur le `fetch) :
+```js
+componentDidMount() {
+    this.fetchData();
+  }
+  fetchData() {
+    fetch(REQUEST_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          movies: responseData.movies,
+        });
+      })
+      .done();
+  }
+```
+   - Enfin un gère le délais de réception des données en adaptant la fonction `render`, et on crée un fonction `render` spécifique pour l'affichage d'un seul film (oui un seul pour l'instant, patience).
+```js
+render() {
+    if (!this.state.movies) {
+      return this.renderLoadingView();
+    }
+
+    var movie = this.state.movies[0];
+    return this.renderMovie(movie);
+  }
+
+  renderLoadingView() {
+    return (
+      <View style={styles.container}>
+        <Text>
+          Loading movies...
+        </Text>
+      </View>
+    );
+  }
+
+  renderMovie(movie) {
+    return (
+      <View style={styles.container}>
+        <Image
+          source={{uri: movie.posters.thumbnail}}
+          style={styles.thumbnail}
+        />
+        <View style={styles.rightContainer}>
+          <Text style={styles.title}>{movie.title}</Text>
+          <Text style={styles.year}>{movie.year}</Text>
+        </View>
+      </View>
+    );
+  }
+```
+   - On recharge : on voit bien le délais de loading ! (Content de voir du loading...)
+
 
  - [React Native Getting Started](https://facebook.github.io/react-native/docs/getting-started.html#content)
    - Ce qu'il nous faut :
