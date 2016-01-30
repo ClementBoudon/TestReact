@@ -1,15 +1,16 @@
 # Repo de test de ReactJS / React Native
 ## TODO
 
- * [x] Tuto Angular2
- * [x] Tuto React et compréhension principes
- * [x] Recherche Flux, Relay et GraphQL
- * [x] Tuto React Native
- * [x] Lecture doc React Native
- * [ ] PPT
- * [ ] Test app vers web (div)
- * [ ] Recherche Angular derrière React Native
- * [ ] Approfondir Angular2
+- [x] Tuto Angular2
+- [x] Tuto React et compréhension principes
+- [x] Recherche Flux, Relay et GraphQL
+- [x] Tuto React Native
+- [x] Lecture doc React Native
+- [ ] PPT
+- [ ] Lecture doc React Native
+- [ ] Test app vers web (div)
+- [ ] Recherche Angular derrière React Native
+- [ ] Approfondir Angular2
 
 ## Notes d'étude
 
@@ -30,7 +31,7 @@
     2. Des props... (données non modifiables, transmises par le "owner")
     3. ... et des states (données modifiable spar le composant - donc l'utilisateur). React maintient l'affichage à jour en cas de changement de state)
     4. (et puis des méthodes)
-    5. VirtualDOM (render dans un contexte donné, cc React Native)
+    5. VirtualDOM (render dans un contexte donné, cc React Native) et isomorphisme
     6. JSX conseillé (efficacité et lisibilité), mais pas obligatoire
     7. Data flow uni-directionnel (même si on peut faire du bi-directionnel vers parents, grâce à des méthodes connues via des props, et donc peut être inclus dans une archi basée sur Angular)
   4. Pas vraiement MVC finalement, mais du flux (ou du Relay et du GraphQL)
@@ -53,7 +54,7 @@
 ### React Native
 
 
- - [React Native Tutorial](http://facebook.github.io/react-native/docs/tutorial.html#content)
+[React Native Tutorial](http://facebook.github.io/react-native/docs/tutorial.html#content)
    - On considère que notre stack locale est complète (cf. React Native Getting Started : Mac / Homebrew / Watchman / Flow / Node - NPM / Xcode / Android SDK - Simulateur)
    - On crée le dossier du projet `mkdir reactnative-tutorial` et on se place dedans `cd reactnative-tutorial`
    - On installe l'outil en ligne de commande de React Native (si elle n'a pas déjà étét installée en global `react-native -v`) : `npm install -g react-native-cli`
@@ -263,12 +264,9 @@ listView: {
   },
 ```
    - Et voilà !
-
    - On peut copier l'intagralité du code dans la version android `index.android.js` pour tester la magie de React Native. (F2 pour accéder au menu permettant de recharger).
 
-
-
- - [React Native Getting Started](https://facebook.github.io/react-native/docs/getting-started.html#content)
+[React Native Getting Started](https://facebook.github.io/react-native/docs/getting-started.html#content)
    - Ce qu'il nous faut :
      - Il faut être sous mac (pour le tuto), avoir [Homebrew](http://brew.sh/) (gestionnaire de package sous OS X), pour Watchman et Flow, ainsi que et node en local (on check : `brew -v` / `node -v`)
      - Pour `brew update && brew upgrade`, j'ai dû changer les droits de /usr/local, et donc retrouver mon nom d'utilisateur `whoami` et mon nom de groupe `groups $(whoami) | cut -d' ' -f1` puis faire un `cd /usr/local` + `sudo chown -R <your-username>:<your-group-name> *`
@@ -299,10 +297,10 @@ listView: {
 
 ### React
 
- - [Starter Kit](https://facebook.github.io/react/downloads/react-0.14.6.zip)
+[Starter Kit](https://facebook.github.io/react/downloads/react-0.14.6.zip)
    - Pour faire du React sans outils (et donc sans JSX), on peut utiliser ce starter kit et inclure les libraires react.js et react-dom.js. Et coder du React.
 
- - [React Tutorial](https://facebook.github.io/react/docs/tutorial.html)
+[React Tutorial](https://facebook.github.io/react/docs/tutorial.html)
    - Objectif : système de commentaire.
    - On Utilisera un serveur local pour fournir une API pour simuler le backend.
    - On télécharge [l'archive d'exemple](https://github.com/reactjs/react-tutorial/archive/master.zip) et on décompress dans le dossier `react-tutorial`
@@ -354,7 +352,7 @@ Et on peut directement utiliser ces composants "faits maison" en XML-like (via d
 
 ### Angular 2
 
- - [Angular 2 QuickStart](https://angular.io/docs/ts/latest/quickstart.html) *Version JavaScript*
+[Angular 2 QuickStart](https://angular.io/docs/ts/latest/quickstart.html) *Version JavaScript*
    - Installer [npm](https://docs.npmjs.com/getting-started/installing-node) (on check : `npm -v`)
    - On installe via fichier `package.json` et `npm install` les librairies qui vont bien (Angular 2, mais aussi les outils nécessaires : chargeur, modules ES6, etc)
    - On crée le répertoire `app` contenant nos composants. À l'intérieur :
@@ -406,3 +404,7 @@ Pour aller plus loin : le bon vieux [tuto de TODO List](https://facebook.github.
  - [Flux](https://facebook.github.io/flux/)
  - [ngReact](http://ngreact.github.io/ngReact/)
  - [Angular 2](https://angular.io/)
+ - [Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+ - [Why React Native](https://code.facebook.com/posts/1014532261909640/react-native-bringing-modern-web-techniques-to-mobile/)
+ - [Introducing Relay and GraphQL](https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html)
+ - [React Native Styling : rational behind it](https://facebook.github.io/react-native/docs/style.html)
