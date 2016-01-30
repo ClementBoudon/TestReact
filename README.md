@@ -28,8 +28,32 @@
 ### React Native
 
  - [React Native Getting Started](https://facebook.github.io/react-native/docs/getting-started.html#content)
-   - Il faut être sous mac (pour le tuto), avoir [Homebrew](http://brew.sh/) pour Watchman et Flow, ainsi que et node en local (on check : `brew -v` / `node -v`)
-   - Pour updater brew, j'ai dû changer les droits de /usr/local, et donc retrouver mon nom d'utilisateur `whoami` et mon nom de groupe `groups $(whoami) | cut -d' ' -f1` puis faire un `cd /usr/local` + `sudo chown -R <your-username>:<your-group-name> *`
+   - Ce qu'il nous faut :
+     - Il faut être sous mac (pour le tuto), avoir [Homebrew](http://brew.sh/) (gestionnaire de package sous OS X), pour Watchman et Flow, ainsi que et node en local (on check : `brew -v` / `node -v`)
+     - Pour `brew update && brew upgrade`, j'ai dû changer les droits de /usr/local, et donc retrouver mon nom d'utilisateur `whoami` et mon nom de groupe `groups $(whoami) | cut -d' ' -f1` puis faire un `cd /usr/local` + `sudo chown -R <your-username>:<your-group-name> *`
+     - On installe donc `brew install watchman` et `brew install flow`, petits outils de debug
+     - Il faut également Xcode
+     - et toute l'installation qui va bien pour Android (comme n'importe quel développement Android) :
+       - Android Studio
+        - Le SDK Android (que l'on peut manager via ... le SDK manager)
+        - Penser à rajouter une variable d'environnement `ANDROID_HOME` pointant vers le dossier des SDK (chez moi `/Users/Clement/Library/Android/sdk`, trouvable via le SDK Manager) : `export ANDROID_HOME=/Users/Clement/Library/Android/sdk` et `export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools`. Si erreur de build car version de SDK non trouvé, on lance le SDK manager,`android ` dans un terminal, sélection les tools nécessaires, valider licence et installer (cf [Android Setup](http://facebook.github.io/react-native/docs/android-setup.html#content)).
+        - un Device de simulation (lancé bien en avance si possible)
+
+  - Quick Start (comme son nom l'indique)
+    - On installe via npm l'outil en ligne de commande React Native `npm install -g react-native-cli`
+    - On crée un projet `react-native init AwesomeProject` : crée l'architecture du projet avec un dossier pour iOS et un pour Android, et deux fichiers index js de l'app, spécifiques pour chaque plateforme (mais via include on peut bien sûr mutualiser le code entre les plateformes). Attention, ça peut être un peu long.
+    - À partir de là, les applis sont créées.
+    - On lance dans le projet `cd AwesomeProject` le serveur `npm start` pour faire tous les build nécessaires à chaque modifs, et surtout faire tourner l'application.
+    - Pour lancer l'appli (vide en l'état) : on ouvre 'AwesomeProject/ios/AwesomeProject.xcodeproj' avec Xcode (il va indexer et importer les fichiers), puis lancer l'application (un bon gros clic sur build et run, la flèche noire quoi).
+    - Ensuite, toute modification dans `index.ios.js` (à la racine du projet) sera visible dans le simulateur sur Xcode avec un simple cmd + R.
+    - Pour Android, on va dans le dossier du projet `cd AwesomeProject`, on execute `react-native run-android` et on édite `index.android.js`. Il vaut mieux avoir déjà lancé un simulateur, ou avoir un device de connecté en mode debug avec Android Studio d'ouvert. Une fois lancée sur le simulateur, F2 puis Reload JS pour recharger le javascript et on voit directement nos mise à jour réalisées dans `index.android.js`.
+    - Simple non ?
+
+ - Allons un peu plus loin (juste un peu) :
+    - Avec le simulateur iOS ou Android qui tourne et `npm start` de lancé
+    - on modifie `index.ios.js` / `index.android.js` en ajoutant le contenu des composants créés dans *react-starterkit*, et en modifiant le `render()` du composant `AwesomeProject` pour inclure notre `CommentBox`. Ça ne marche pas. En effet, on essaye d'utiliser des composants HTML (ici `div`), il faut en fait utiliser des composants React Native (qui sont eux cross-plateform iOS et Android mais pas HTML, on ne construit pas une web app mais bien une app mobile). On utilise donc des composants comme `View` ou encore `Text` (importés en amont) comme outils de base. Heureusement React a prévu l'utilisation de styles et la gestion Flexbox (type HTML) pour rendre tout cela plus facile pour les dev web : on peut re-créer des h1 et des h2 appliqués à des composants `Text` par exemple.
+    - Liste des composants React Native dispo : [RTFM](http://facebook.github.io/react-native/docs/).
+
 
 
 ### React
