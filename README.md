@@ -1,4 +1,15 @@
 # Repo de test de ReactJS / React Native
+## TODO
+
+ * [x] Tuto Angular2
+ * [x] Tuto React et compréhension principes
+ * [x] Recherche Flux, Relay et GraphQL
+ * [x] Tuto React Native
+ * [x] Lecture doc React Native
+ * [ ] PPT
+ * [ ] Test app vers web (div)
+ * [ ] Recherche Angular derrière React Native
+ * [ ] Approfondir Angular2
 
 ## Notes d'étude
 
@@ -13,25 +24,28 @@
 
 1. Rappel :
   1. SPA
-  2. Framework MVC
+  2. Framework MVC (Angular)
   3. V *via* React
-    1. Composant, Composant everywhere (découpe unitaire, gère l'affichage des éléments composant ue app, methode render retournant l'affichage)
-    2. Des props... (données non modifiable, reçue par le "owner")
-    3. ... et des states (données modifiable par le composant - donc l'utilisateur. React maintient l'affichage à jour en cas de changement de state)
+    1. Composant, Composant everywhere (découpe unitaire, gère l'affichage des éléments composant une app, methode render() retournant l'affichage)
+    2. Des props... (données non modifiables, transmises par le "owner")
+    3. ... et des states (données modifiable spar le composant - donc l'utilisateur). React maintient l'affichage à jour en cas de changement de state)
     4. (et puis des méthodes)
-    2. VirtualDOM (render dans un contexte donnée, cc React Native)
-    3. JSX conseillé (efficacité et lisibilité), mais pas obligatoire
-    4. Data flow uni-directionnel (même si on peut faire du bi-directionnel vers parents, grâce à des méthodes connues via des props)
-  4. Plutôt pas M et C finallement, mais du flux (et du relay, et du GraphQL)
+    5. VirtualDOM (render dans un contexte donné, cc React Native)
+    6. JSX conseillé (efficacité et lisibilité), mais pas obligatoire
+    7. Data flow uni-directionnel (même si on peut faire du bi-directionnel vers parents, grâce à des méthodes connues via des props, et donc peut être inclus dans une archi basée sur Angular)
+  4. Pas vraiement MVC finalement, mais du flux (ou du Relay et du GraphQL)
 2. React Native
-  1. Des composants comme React et grace au virtualDOM on peut faire du mobile (pas de div : à valider)
-  2. Du style (flex, en JS car nécessité de répondre à des contraintes posées par CSS web)
-  3. Du natif si besoin
-3. Explorons...
-  1. l'app iOS
-  2. l'app Android
+  1. Histoire
+  2. Des composants comme React et grace au virtualDOM on peut faire du mobile en convertissant en composants natifs (pas de div : à valider)
+  3. Du style (flex, en JS car nécessité de répondre à des contraintes posées par CSS web)
+  4. Du natif si besoin
+  5. et l'export ? (ios : projet xCode avec quelques petites modifs de config / Android cd android && ./gradlew assembleRelease`)
+3. Demo Time!
 4. Et si on utilisait Cordova ?
-5. Angular + Ionic + Cordova = Angular + React + React Native ?
+  1. React Native est *concurrent* de Cordova
+  2. On peut avoir du React dans web app (en ligne) donc dans Cordova puisqu'il s'agit d'une webview, mais pas React Native
+  3. et Angular derrière React Native ?
+
 
 
 ## Notes de tests (de bas en haut chronologiquement)
@@ -185,7 +199,73 @@ render() {
     );
   }
 ```
-   - On recharge : on voit bien le délais de loading ! (Content de voir du loading...)
+   - On recharge : on voit bien le délais de loading !
+   - On va désormais rajouter un composant React Native `ListView`, pour afficher le liste des films.
+   - On l'ajoute aux composants importés
+```js
+import React, {
+  AppRegistry,
+  Component,
+  Image,
+  ListView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+```
+   - On modifie la fonction `render` pour qu'elle utilise ListView, qui utilise comme prop (en plus du style) `dataSource` pour la source de données (que l'on va stocker dans le state du même nom (en définissant la manière dont on considère qu'une ligne à étét modifiée), et `renderRow`, la fonction `render`à utiliser par élément de la liste (+ un peu de styles). :
+```js
+render() {
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
+    }
+
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderMovie}
+        style={styles.listView}
+      />
+    );
+  }
+``
+
+```js
+constructor(props) {
+    super(props);
+    this.state = {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }),
+      loaded: false,
+    };
+  }
+```
+
+```js
+fetchData() {
+    fetch(REQUEST_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
+          loaded: true,
+        });
+      })
+      .done();
+  }
+```
+
+```js
+listView: {
+    paddingTop: 20,
+    backgroundColor: '#F5FCFF',
+  },
+```
+   - Et voilà !
+
+   - On peut copier l'intagralité du code dans la version android `index.android.js` pour tester la magie de React Native. (F2 pour accéder au menu permettant de recharger).
+
 
 
  - [React Native Getting Started](https://facebook.github.io/react-native/docs/getting-started.html#content)
@@ -292,6 +372,10 @@ Et on peut directement utiliser ces composants "faits maison" en XML-like (via d
      - `npm start` (qui lance le script `start` - donc `lite` donc `lite-server`, un serveur node allégé mais avec pleins d'outils pratiques - déclaré dans le `package.json`)
    - Thats All Folks!
 
+## Relay et GraphQL
+
+[Relay](https://facebook.github.io/relay/)
+Permettre aux composants React de déclarer les données dont ils ont besoin, sans qu'ils ne s'occuppent de leur storage. Utilise le *langage* `GraphQL`. Peut se retoruver en opposition avec Flux.
 
 ## Flux
 
