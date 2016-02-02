@@ -27,6 +27,7 @@
   1. SPA
   2. Framework MVC (Angular)
   3. V *via* React
+2. React
     1. Composant, Composant everywhere (découpe unitaire, gère l'affichage des éléments composant une app, methode render() retournant l'affichage)
     2. Des props... (données non modifiables, transmises par le "owner")
     3. ... et des states (données modifiable spar le composant - donc l'utilisateur). React maintient l'affichage à jour en cas de changement de state)
@@ -34,15 +35,15 @@
     5. VirtualDOM (render dans un contexte donné, cc React Native) et isomorphisme
     6. JSX conseillé (efficacité et lisibilité), mais pas obligatoire
     7. Data flow uni-directionnel (même si on peut faire du bi-directionnel vers parents, grâce à des méthodes connues via des props, et donc peut être inclus dans une archi basée sur Angular)
-  4. Pas vraiement MVC finalement, mais du flux (ou du Relay et du GraphQL)
-2. React Native
+    8. Pas vraiement MVC finalement, mais du flux (ou du Relay et du GraphQL)
+3. React Native
   1. Histoire
   2. Des composants comme React et grace au virtualDOM on peut faire du mobile en convertissant en composants natifs (pas de div : à valider)
   3. Du style (flex, en JS car nécessité de répondre à des contraintes posées par CSS web)
   4. Du natif si besoin
   5. et l'export ? (ios : projet xCode avec quelques petites modifs de config / Android cd android && ./gradlew assembleRelease`)
-3. Demo Time!
-4. Et si on utilisait Cordova ?
+4. Demo Time!
+5. Et si on utilisait Cordova ?
   1. React Native est *concurrent* de Cordova
   2. On peut avoir du React dans web app (en ligne) donc dans Cordova puisqu'il s'agit d'une webview, mais pas React Native
   3. et Angular derrière React Native ?
@@ -229,7 +230,7 @@ render() {
       />
     );
   }
-``
+```
 
 ```js
 constructor(props) {
@@ -264,7 +265,7 @@ listView: {
   },
 ```
    - Et voilà !
-   - On peut copier l'intagralité du code dans la version android `index.android.js` pour tester la magie de React Native. (F2 pour accéder au menu permettant de recharger).
+   - On peut copier l'intégralité du code dans la version android `index.android.js` pour tester la magie de React Native. (F2 pour accéder au menu permettant de recharger).
 
 [React Native Getting Started](https://facebook.github.io/react-native/docs/getting-started.html#content)
    - Ce qu'il nous faut :
@@ -408,4 +409,6 @@ Pour aller plus loin : le bon vieux [tuto de TODO List](https://facebook.github.
  - [Flux](https://facebook.github.io/flux/)
  - [Introducing Relay and GraphQL](https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html)
  - [Learning React.js: Getting Started and Concepts](https://scotch.io/tutorials/learning-react-getting-started-and-concepts)
+ - [Angular2 remplacing React in React Native](https://github.com/angular/react-native-renderer)
+ - [Is React killing Angular?](https://www.quora.com/Is-React-killing-Angular)
 
