@@ -149,7 +149,7 @@ constructor(props) {
     };
   }
 ```
-   - Une fois que le composant est monté, on lance la récupération des données (via une promise sur le `fetch) :
+   - Une fois que le composant est monté, on lance la récupération des données (via une promise sur le `fetch`) :
 ```js
 componentDidMount() {
     this.fetchData();
