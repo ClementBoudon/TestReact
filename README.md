@@ -10,7 +10,7 @@
 - [x] ~~Test app vers web (div)~~
 - [x] ~~Recherche Angular derrière React Native~~
 - [x] ~~PPT~~
-- [ ] *Approfondir Angular2* (see you next ;))
+- [ ] *Approfondir Angular2* (see you next time... ;))
 
 ## Notes d'étude
 
