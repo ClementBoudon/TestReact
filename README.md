@@ -6,11 +6,11 @@
 - [x] ~~Recherche Flux, Relay et GraphQL~~
 - [x] ~~Tuto React Native~~
 - [x] ~~Lecture doc React Native~~
-- [ ] Lecture doc React
-- [ ] Test app vers web (div)
-- [ ] Recherche Angular derrière React Native
-- [ ] *PPT*
-- [ ] Approfondir Angular2
+- [x] ~~Lecture doc React~~
+- [x] ~~Test app vers web (div)~~
+- [x] ~~Recherche Angular derrière React Native~~
+- [x] ~~PPT~~
+- [ ] *Approfondir Angular2* (see you next ;))
 
 ## Notes d'étude
 
